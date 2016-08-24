@@ -2,6 +2,8 @@ package presentationLayer;
 
 import bussinessLogicLayer.RealCustomerLogic;
 import dataAccessLayer.RealCustomer;
+import exception.DuplicateCodeException;
+import exception.EmptyFieldException;
 import exception.HibernateExceptions;
 import util.OutputGenerator;
 
@@ -26,15 +28,18 @@ public class CreateRealCustomerServlet extends HttpServlet {
         String outputHTML = "";
         RealCustomer realCustomer = null;
 
-        //try {
-        RealCustomerLogic.checkValidation(firstName.trim(), lastName.trim(), fatherName.trim(), birthDate.trim(), nationalId.trim());
         try {
+            RealCustomerLogic.checkValidation(firstName.trim(), lastName.trim(), fatherName.trim(), birthDate.trim(), nationalId.trim());
             realCustomer = RealCustomerLogic.createRealCustomer( firstName, lastName, fatherName ,birthDate , nationalId);
             outputHTML = OutputGenerator.generateSuccessfulInsert(realCustomer);
 
         } catch (HibernateExceptions ex) {
-            outputHTML = OutputGenerator.generateExceptionPage( );
+            outputHTML = OutputGenerator.generateExceptionPage("خطای سیستمی!!!" );
 
+        } catch (EmptyFieldException e) {
+            outputHTML = OutputGenerator.generateExceptionPage(e.getMessage());
+        } catch (DuplicateCodeException e) {
+            outputHTML = OutputGenerator.generateExceptionPage(e.getMessage());
         }
         response.setContentType("text/html; charset=UTF-8");
         response.setCharacterEncoding("UTF-8");

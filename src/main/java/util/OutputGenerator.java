@@ -59,7 +59,7 @@ public class OutputGenerator {
                 stringBuilder.append("            <td>" + realCustomer.getFatherName() + "</td>\n");
                 stringBuilder.append("            <td>" + realCustomer.getBirthDate() + "</td>\n");
                 stringBuilder.append("            <td>" + realCustomer.getNationalId() + "</td>\n");
-                stringBuilder.append("            <td>" + realCustomer.getId() + "</td>\n");
+                stringBuilder.append("            <td>" + realCustomer.getCustomerNumber() + "</td>\n");
                 stringBuilder.append("            <td>\n");
                 stringBuilder.append("                <form style=\"float: right\" action=" + deletePath + realCustomer.getId() + " method=\"post\">");
                 stringBuilder.append("                    <input type=\"submit\" class=\"button button1\" value=\"حذف\">\n");
@@ -209,7 +209,7 @@ public class OutputGenerator {
         return stringBuilder.toString();
     }
 
-    public static String generateExceptionPage() {
+    public static String generateExceptionPage(String message) {
         StringBuilder stringBuilder = new StringBuilder("");
         stringBuilder.append("<!DOCTYPE html>\n");
         stringBuilder.append("<html>\n");

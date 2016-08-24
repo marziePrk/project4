@@ -6,6 +6,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.hibernate.resource.transaction.spi.TransactionCoordinatorBuilder;
 import util.SessionFactoryGenerator;
 
 import java.util.ArrayList;
@@ -73,18 +74,25 @@ public class RealCustomerDAO {
     //retrieveRealCustomerByCustomerNumber------------------------------------------------------------------------------
     public static List<RealCustomer> retrieveRealCustomerByCustomerNumber(String customerNumber) {
         Session session = SessionFactoryGenerator.getSessionFactory().openSession();
-        //Long number1 = Long.valueOf(customerNumber);
-        List<RealCustomer> realCustomers;
+        Transaction transaction = session.beginTransaction();
+        List<RealCustomer> realCustomers = null;
         Query query;
-        if (customerNumber.equals("")) {
-            String hql = "from RealCustomer ";
-            query = session.createQuery(hql);
-        } else {
-            String hql = "from RealCustomer realCustomer where realCustomer.customerNumber = :customerNumber";
-            query = session.createQuery(hql);
-            query.setParameter("customerNumber", customerNumber);
+        try {
+            if (customerNumber.equals("")) {
+                String hql = "from RealCustomer ";
+                query = session.createQuery(hql);
+                realCustomers = query.list();
+            }
+            if(!customerNumber.equals("")){
+                String hql = "from RealCustomer realCustomer where customerNumber = :customerNumber";
+                query = session.createQuery(hql);
+                query.setParameter("customerNumber", customerNumber);
+                realCustomers = query.list();
+            }
+            transaction.commit();
+        }finally {
+            session.close();
         }
-        realCustomers = query.list();
 
         return realCustomers;
     }
@@ -92,11 +100,14 @@ public class RealCustomerDAO {
     //retrieveRealCustomerByNationalId----------------------------------------------------------------------------------
     public static ArrayList<RealCustomer> retrieveRealCustomerByNationalId(String nationalId) {
         Session session = SessionFactoryGenerator.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
         List<RealCustomer> realCustomers;
         try {
-            String hql = "from RealCustomer realCustomer where realCustomer.nationalId = nationalId";
+            String hql = "from RealCustomer realCustomer where nationalId = :nationalId";
             Query query = session.createQuery(hql);
+            query.setParameter("nationalId" , nationalId);
             realCustomers = query.list();
+            transaction.commit();
         } finally {
             session.close();
         }
@@ -104,68 +115,113 @@ public class RealCustomerDAO {
     }
 
     //retrieveRealCustomer----------------------------------------------------------------------------------------------
-    public static ArrayList<RealCustomer> retrieveRealCustomer(String firstName, String lastName, String fatherName, String birthDate, String nationalCode) {
-        List<RealCustomer> realCustomers;
+    public static ArrayList<RealCustomer> retrieveRealCustomer(String firstName, String lastName, String nationalCode) {
         Session session = SessionFactoryGenerator.getSessionFactory().openSession();
-        Query query;
-        StringBuilder hqlCommand = new StringBuilder("");
-        Map<String, String> parameters = new HashMap<String, String>();
-        if (!firstName.equals("")) {
-            hqlCommand.append("firstName =:firstName");
-            parameters.put("firstName", firstName);
-        }
-        if (!lastName.equals("")) {
-            hqlCommand.append(" lastName =:lastName");
-            parameters.put("lastName", lastName);
-        }
-        if (!fatherName.equals("")) {
-            hqlCommand.append(" fatherName =:fatherName");
-            parameters.put(" fatherName", fatherName);
-        }
-        if (!birthDate.equals("")) {
-            hqlCommand.append(" birthDate =:birthDate");
-            parameters.put("birthDate", birthDate);
-        }
+        Transaction transaction = session.beginTransaction();
+        List<RealCustomer> realCustomers = null;
+        Query query = null;
+
+        if (!firstName.equals("") && !lastName.equals("") &&! nationalCode.equals("") ) {
+            String hql = "from RealCustomer realCustomer where firstName = :firstName and lastName = :lastName and nationalId = :nationalCode";
+            query = session.createQuery(hql);
+            query.setParameter("firstName", firstName);
+            query.setParameter("lastName", lastName);
+            query.setParameter("nationalCode", nationalCode);
+            realCustomers = query.list();
+            transaction.commit();
+            session.close();
+            return (ArrayList<RealCustomer>) realCustomers;
+        }else
+        if (!firstName.equals("") && !lastName.equals("")) {
+            String hql = "from RealCustomer realCustomer where firstName = :firstName and lastName = :lastName";
+            query = session.createQuery(hql);
+            query.setParameter("firstName", firstName);
+            query.setParameter("lastName", lastName);
+            realCustomers = query.list();
+            transaction.commit();
+            session.close();
+            return (ArrayList<RealCustomer>) realCustomers;
+        }else
+        if (!firstName.equals("") && !nationalCode.equals("")) {
+            String hql = "from RealCustomer realCustomer where firstName = :firstName and nationalId = :nationalId";
+            query = session.createQuery(hql);
+            query.setParameter("firstName", firstName);
+            query.setParameter("nationalId", nationalCode);
+            realCustomers = query.list();
+            transaction.commit();
+            session.close();
+            return (ArrayList<RealCustomer>) realCustomers;
+        }else
+        if (!lastName.equals("") && !nationalCode.equals("")) {
+            String hql = "from RealCustomer realCustomer where lastName = :lastName and nationalId = :nationalId";
+            query = session.createQuery(hql);
+            query.setParameter("lastName", lastName);
+            query.setParameter("nationalId", nationalCode);
+            realCustomers = query.list();
+            transaction.commit();
+            session.close();
+            return (ArrayList<RealCustomer>) realCustomers;
+        }else
         if (!nationalCode.equals("")) {
-            hqlCommand.append(" nationalId =:nationalCode");
-            parameters.put("nationalCode", nationalCode);
+            String hql = "from RealCustomer realCustomer where nationalId = :nationalCode";
+            query = session.createQuery(hql);
+            query.setParameter("nationalCode", nationalCode);
+            realCustomers = query.list();
+            transaction.commit();
+            session.close();
+            return (ArrayList<RealCustomer>) realCustomers;
+        }else
+        if (firstName.equals("") && lastName.equals("") && nationalCode.equals("")) {
+            String hql = "from RealCustomer realCustomer";
+            query = session.createQuery(hql);
+            realCustomers = query.list();
+            transaction.commit();
+            session.close();
+            return (ArrayList<RealCustomer>) realCustomers;
+        }else
+        if (!firstName.equals("")) {
+            String hql = "from RealCustomer realCustomer where firstName = :firstName ";
+            query = session.createQuery(hql);
+            query.setParameter("firstName", firstName);
+            realCustomers = query.list();
+            transaction.commit();
+            session.close();
+            return (ArrayList<RealCustomer>) realCustomers;
+        }else
+        if (!lastName.equals("")) {
+            String hql = "from RealCustomer realCustomer where lastName = :lastName ";
+            query = session.createQuery(hql);
+            query.setParameter("lastName", lastName);
+            realCustomers = query.list();
+            transaction.commit();
+            session.close();
+            return (ArrayList<RealCustomer>) realCustomers;
         }
-        if (parameters.size() > 0) {
-            query = session.createQuery("from RealCustomer where " + hqlCommand.toString());
-        } else {
-            query = session.createQuery("from RealCustomer realCustomer");
-        }
+           /* realCustomers = query.list();
+            transaction.commit();*/
 
-        for (String key : parameters.keySet()) {
-            String value = parameters.get(key);
-            query.setParameter(key, value);
-        }
-        realCustomers = query.list();
-
-        return (ArrayList<RealCustomer>) realCustomers;
+        return null;
     }
 
     public static int generateCustomerNumber() {
-        int customerNumber ;
+        int customerNumber;
         Session session = SessionFactoryGenerator.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
             long count = retrieveRealCustomerCount();
             if (count == 0) {
                 return 1000;
-            }else {
+            } else {
                 String maxHql = "select max(realCustomer.customerNumber) from RealCustomer realCustomer";
                 Query query = session.createQuery(maxHql);
-                customerNumber = ((Integer) query.uniqueResult()) ;
+                customerNumber = ((Integer) query.uniqueResult());
                 transaction.commit();
-                int newumber = customerNumber+1;
-                //customerNumber = (Integer) customerNumbers.get(0);
-                return newumber;
+                int newNumber = customerNumber + 1;
+                return newNumber;
             }
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }
-        finally {
+        } finally {
             session.close();
         }
         return 0;
@@ -180,7 +236,7 @@ public class RealCustomerDAO {
             Query query = session.createQuery(hql);
             count = (Long) query.uniqueResult();
             transaction.commit();
-        }finally {
+        } finally {
             session.close();
         }
         return count;

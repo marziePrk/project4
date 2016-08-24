@@ -20,8 +20,6 @@ public class SearchRealCustomerServlet extends HttpServlet {
         request.setCharacterEncoding("UTF8");
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
-        String fatherName = request.getParameter("fatherName");
-        String birthDate = request.getParameter("birthDate");
         String nationalCode = request.getParameter("nationalCode");
         String customerNumber = request.getParameter("customerNumber");
         String outputHTML = "";
@@ -29,7 +27,7 @@ public class SearchRealCustomerServlet extends HttpServlet {
 
         //try {
             if (customerNumber == null) {
-                realCustomers = RealCustomerLogic.retrieveRealCustomer(firstName, lastName, fatherName, birthDate, nationalCode);
+                realCustomers = RealCustomerLogic.retrieveRealCustomer(firstName, lastName, nationalCode);
             } else {
                 realCustomers = RealCustomerLogic.retrieveRealCustomerByCustomerNumber(customerNumber);
             }
