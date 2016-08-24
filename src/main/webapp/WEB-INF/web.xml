@@ -1,0 +1,78 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+
+  <servlet>
+    <servlet-name>CreateRealCustomerServlet</servlet-name>
+    <servlet-class>presentationLayer.CreateRealCustomerServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>SearchRealCustomerServlet</servlet-name>
+    <servlet-class>presentationLayer.SearchRealCustomerServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>DeleteRealCustomerServlet</servlet-name>
+    <servlet-class>presentationLayer.DeleteRealCustomerServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>UpdateRealCustomerServlet</servlet-name>
+    <servlet-class>presentationLayer.UpdateRealCustomerServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>SaveRealCustomerChangedServlet</servlet-name>
+    <servlet-class>presentationLayer.SaveRealCustomerChangedServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>CreateLoanFileServlet</servlet-name>
+    <servlet-class>presentationLayer.CreateLoanFileServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>CreateLoanTypeServlet</servlet-name>
+    <servlet-class>presentationLayer.CreateLoanTypeServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>CreateRealCustomerServlet</servlet-name>
+    <url-pattern>/CreateRealCustomerServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>SearchRealCustomerServlet</servlet-name>
+    <url-pattern>/SearchRealCustomerServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>DeleteRealCustomerServlet</servlet-name>
+    <url-pattern>/DeleteRealCustomerServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>UpdateRealCustomerServlet</servlet-name>
+    <url-pattern>/UpdateRealCustomerServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>SaveRealCustomerChangedServlet</servlet-name>
+    <url-pattern>/SaveRealCustomerChangedServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>CreateLoanFileServlet</servlet-name>
+    <url-pattern>/CreateLoanFileServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>CreateLoanTypeServlet</servlet-name>
+    <url-pattern>/CreateLoanTypeServlet</url-pattern>
+  </servlet-mapping>
+
+</web-app>

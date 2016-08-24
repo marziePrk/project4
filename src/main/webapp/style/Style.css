@@ -1,0 +1,113 @@
+body{
+    background-image: url("../images/bank2.jpg") ;
+    direction: rtl;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+}
+h1,h2 ,h3{
+    color:saddlebrown ;
+    padding-top: 0;
+    margin-top: 0;
+}
+p{
+    font-size: 400%;
+    color: saddlebrown;
+    height: 50px;
+    padding-top: 0;
+}
+.content{
+    text-align: center;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.pageHeader{
+    width: 15%;
+    margin: 40px auto 0 auto;
+    padding-bottom: 90px;
+    background-image: url("../images/pasargad.jpg") ;
+}
+.button{
+    border-radius: 25px;
+    border: 2px solid saddlebrown ;
+    margin: 15px 5px 5px 5px;
+    background-color: burlywood;
+    color: saddlebrown;
+    font-size: 20px;
+    width: 140px;
+    cursor: pointer;
+    height: 40px;
+    font-family: arial, sans-serif;
+    padding: 5px;
+}
+.button:hover {background-color: bisque}
+
+.button:active {
+    background-color: bisque;
+    box-shadow: 0 5px ;
+    transform: translateY(4px);
+}
+.button1{
+    width: 70px;
+    height: 25px;
+    border: 1px solid saddlebrown ;
+    font-size: 15px;
+    padding-top: 0;
+    padding-bottom: 1px;
+
+}
+form{
+    align-items: center;
+    font-size:20px ;
+    color: saddlebrown;
+}
+.tableBox {
+    margin: 5px 500px 10px  500px;
+    text-align: center;
+    align-content: center;
+    align-items: center;
+}
+.title{
+    height: 85px;
+    margin-top: 80px;
+}
+h6{
+    color: saddlebrown;
+    margin-top: 0px;
+    padding-top: 0px;
+}
+.searchBox{
+    display: flex;
+    width: 550px;
+    height: 250px;
+    background-color: #FFFAE6;
+    margin: 1px auto;
+    border-radius: 10px;
+}
+.searchBoxChild{
+    background-color: #F5D099;
+    border:1px solid  saddlebrown ;
+    width: 265px;
+    height: 250px;
+    margin: auto 10px auto auto;
+    padding-right: 1px;
+    padding-left: 10px;
+
+}
+.searchTable table {
+    border-collapse: collapse;
+    width: 600px;
+    margin: auto;
+}
+
+.searchTable td {
+    text-align: center;
+    background-color:#F7E7C5;
+    padding-right: 10px;
+}
+.searchTable th {
+    background-color:  #C99448;
+    color: #FFFAE6;
+    text-align: center;
+}
