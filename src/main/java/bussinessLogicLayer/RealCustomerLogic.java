@@ -36,6 +36,39 @@ public class RealCustomerLogic {
         return true;
     }
 
+    public static boolean checkValidation(Long id, String firstName, String lastName, String fatherName, String birthDate, String nationalId) throws EmptyFieldException, DuplicateCodeException {
+        if (firstName.equals("")) {
+            throw new EmptyFieldException("لطفا فیلد نام  را وارد کنید. ");
+        }
+        if (lastName.equals("")) {
+            throw new EmptyFieldException("لطفا فیلد نام خانوادگی  را وارد کنید. ");
+        }
+        if (fatherName.equals("")) {
+            throw new EmptyFieldException("لطفا فیلد نام پدر  را وارد کنید.");
+        }
+        if (fatherName.equals("")) {
+            throw new EmptyFieldException("لطفا فیلد نام پدر  را وارد کنید.");
+        }
+        if (birthDate.equals("")) {
+            throw new EmptyFieldException("لطفا فیلد تاریخ تولد   را وارد کنید.");
+        }
+        if (nationalId.equals("")) {
+            throw new EmptyFieldException("لطفا فیلد شماره ملی   را وارد کنید.");
+        }
+        ArrayList<RealCustomer> realCustomers = RealCustomerDAO.retrieveRealCustomerByNationalId(nationalId);
+        int realCustomersSize = realCustomers.size();
+
+        if (realCustomersSize > 0) {
+            RealCustomer realCustomer = realCustomers.get(0);
+            if (realCustomersSize > 1) {
+                throw new DuplicateCodeException("کد ملی وارد شده تکراری است.");
+            } else if (realCustomer.getId() != id) {
+                throw new DuplicateCodeException("کد ملی وارد شده تکراری است.");
+            }
+        }
+        return true;
+    }
+
     public static RealCustomer createRealCustomer(String firstName, String lastName, String fatherName, String birthDate, String nationalId) throws HibernateExceptions {
         RealCustomer realCustomer = new RealCustomer();
         realCustomer.setFirstName(firstName);
@@ -60,5 +93,9 @@ public class RealCustomerLogic {
 
     public static void deleteRealCustomer(long id) throws HibernateExceptions {
         RealCustomerDAO.deleteRealCustomer(id);
+    }
+
+    public static void updateRealCustomer(long id, String firstName, String lastName, String fatherName, String birthDate, String nationalCode) throws HibernateExceptions {
+        RealCustomerDAO.updateRealCustomer(id, firstName, lastName, fatherName, birthDate, nationalCode);
     }
 }

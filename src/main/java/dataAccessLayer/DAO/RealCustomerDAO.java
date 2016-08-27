@@ -6,13 +6,10 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.hibernate.resource.transaction.spi.TransactionCoordinatorBuilder;
-import util.SessionFactoryGenerator;
+import util.HibernateUtil;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -22,7 +19,7 @@ public class RealCustomerDAO {
 
     //create real customer----------------------------------------------------------------------------------------------
     public static void createRealCustomer(RealCustomer realCustomer) throws HibernateExceptions {
-        Session session = SessionFactoryGenerator.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
             session.save(realCustomer);
@@ -39,7 +36,7 @@ public class RealCustomerDAO {
 
     //deleteRealCustomer------------------------------------------------------------------------------------------------
     public static void deleteRealCustomer(long id) throws HibernateExceptions {
-        Session session = SessionFactoryGenerator.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
             RealCustomer realCustomer = session.get(RealCustomer.class, id);
@@ -55,11 +52,11 @@ public class RealCustomerDAO {
     }
 
     //updateRealCustomer------------------------------------------------------------------------------------------------
-    public static void updateRealCustomer(String firstName, String lastName, String fatherName, String birthDate, String nationalId) throws HibernateExceptions {
-        Session session = SessionFactoryGenerator.getSessionFactory().openSession();
+    public static void updateRealCustomer(long id, String firstName, String lastName, String fatherName, String birthDate, String nationalId) throws HibernateExceptions {
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
-            RealCustomer realCustomer = new RealCustomer(firstName, lastName, fatherName, birthDate, nationalId);
+            RealCustomer realCustomer = new RealCustomer(id ,firstName, lastName, fatherName, birthDate, nationalId);
             session.update(realCustomer);
             transaction.commit();
             session.close();
@@ -73,7 +70,7 @@ public class RealCustomerDAO {
 
     //retrieveRealCustomerByCustomerNumber------------------------------------------------------------------------------
     public static List<RealCustomer> retrieveRealCustomerByCustomerNumber(String customerNumber) {
-        Session session = SessionFactoryGenerator.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         List<RealCustomer> realCustomers = null;
         Query query;
@@ -86,7 +83,7 @@ public class RealCustomerDAO {
             if(!customerNumber.equals("")){
                 String hql = "from RealCustomer realCustomer where customerNumber = :customerNumber";
                 query = session.createQuery(hql);
-                query.setParameter("customerNumber", customerNumber);
+                query.setParameter("customerNumber", Integer.parseInt(customerNumber));
                 realCustomers = query.list();
             }
             transaction.commit();
@@ -99,7 +96,7 @@ public class RealCustomerDAO {
 
     //retrieveRealCustomerByNationalId----------------------------------------------------------------------------------
     public static ArrayList<RealCustomer> retrieveRealCustomerByNationalId(String nationalId) {
-        Session session = SessionFactoryGenerator.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         List<RealCustomer> realCustomers;
         try {
@@ -116,7 +113,7 @@ public class RealCustomerDAO {
 
     //retrieveRealCustomer----------------------------------------------------------------------------------------------
     public static ArrayList<RealCustomer> retrieveRealCustomer(String firstName, String lastName, String nationalCode) {
-        Session session = SessionFactoryGenerator.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         List<RealCustomer> realCustomers = null;
         Query query = null;
@@ -203,9 +200,10 @@ public class RealCustomerDAO {
         return null;
     }
 
+    //generateCustomerNumber--------------------------------------------------------------------------------------------
     public static int generateCustomerNumber() {
         int customerNumber;
-        Session session = SessionFactoryGenerator.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
             long count = retrieveRealCustomerCount();
@@ -227,8 +225,9 @@ public class RealCustomerDAO {
         return 0;
     }
 
+    //retrieveRealCustomerCount-----------------------------------------------------------------------------------------
     private static long retrieveRealCustomerCount() {
-        Session session = SessionFactoryGenerator.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         Long count;
         try {
