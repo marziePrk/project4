@@ -68,6 +68,25 @@ form{
     align-content: center;
     align-items: center;
 }
+.grantConditionBox{
+    display: flex;
+    width: 670px;
+    height: 250px;
+    background-color: #FFFAE6;
+    margin: 1px auto;
+    border-radius: 10px;
+}
+.grantConditionBoxChild{
+    background-color: #F5D099;
+    border:1px solid  saddlebrown ;
+    width: 350px;
+    height: 250px;
+    margin: auto 10px auto auto;
+    padding-right: 1px;
+    padding-left: 10px;
+    align-content: center;
+    align-items: center;
+}
 .title{
     height: 85px;
     margin-top: 80px;
@@ -107,7 +126,7 @@ h6{
     padding-right: 10px;
 }
 .searchTable th {
-    background-color:  #C99448;
-    color: #FFFAE6;
-    text-align: center;
+    border-collapse: collapse;
+    width: 600px;
+    margin: auto;
 }

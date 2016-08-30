@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head lang="fa">
@@ -17,8 +18,8 @@
 
     <h2 style="color: saddlebrown">لطفا نوع مشتری مورد نظر را انتخاب کنید.</h2>
     <br>
-    <a href="real-customer-management.html" class="button">مشتری حقیقی</a>
-    <a href="legal-customer-management.html" class="button">مشتری حقوقی</a>
+    <a href="real-customer-management.jsp" class="button">مشتری حقیقی</a>
+    <a href="legal-customer-management.jsp" class="button">مشتری حقوقی</a>
 
 
 </div>

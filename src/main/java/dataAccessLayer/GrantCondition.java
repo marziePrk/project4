@@ -69,6 +69,9 @@ public class GrantCondition {
         return maxAmount;
     }
 
+    public int getLOAN_TYPE_ID() {
+        return LOAN_TYPE_ID;
+    }
 
     //setter------------------------------------------------------------------------------------------------------------
     public void setId(int id) {
@@ -93,5 +96,14 @@ public class GrantCondition {
 
     public void setMaxAmount(BigDecimal maxAmount) {
         this.maxAmount = maxAmount;
+    }
+
+    public void setLOAN_TYPE_ID(int LOAN_TYPE_ID) {
+        this.LOAN_TYPE_ID = LOAN_TYPE_ID;
+    }
+
+    @Override
+    public String toString() {
+        return name + maxAmount + minAmount + maxDuration + minDuration;
     }
 }

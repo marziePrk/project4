@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head lang="fa">
@@ -13,13 +14,13 @@
         <h1 style="color: saddlebrown">لطفا نوع عملیات درخواستی را انتخاب نمایید:</h1>
         <br>
 
-        <a href="create-real-customer.html" class="button">تعریف مشتری جدید</a>
-        <a href="search-real-customer.html" class="button">جستجوی مشتری فعلی </a>
+        <a href="create-real-customer.jsp" class="button">تعریف مشتری جدید</a>
+        <a href="search-real-customer.jsp" class="button">جستجوی مشتری فعلی </a>
     <br>
     <br>
     <br>
-        <a href="create-loan-file.html" class="button">تعریف نوع تسهیلات </a>
-        <a href="create-loan-type.html" class="button">تشکیل پرونده تسهیلاتی </a>
+        <a href="create-loan-type.jsp" class="button">تعریف نوع تسهیلات </a>
+        <a href="create-loan-file.jsp" class="button">تشکیل پرونده تسهیلاتی </a>
 </div>
 </body>
 </html>

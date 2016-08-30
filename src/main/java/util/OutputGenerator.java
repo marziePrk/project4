@@ -100,7 +100,7 @@ public class OutputGenerator {
         stringBuilder.append("<div class=\"tableBox\">\n");
         stringBuilder.append("    <form>\n");
         stringBuilder.append("<br>\n");
-        stringBuilder.append("        <a href=\"index.html\" class=\"button\">بازگشت به صفحه اول</a>\n");
+        stringBuilder.append("        <a href=\"index.jsp\" class=\"button\">بازگشت به صفحه اول</a>\n");
         stringBuilder.append("    </form>\n");
         stringBuilder.append("</div>\n");
         stringBuilder.append("</body>\n");
@@ -152,7 +152,7 @@ public class OutputGenerator {
         stringBuilder.append("                <td><h5>" + realCustomer.getCustomerNumber() + "</h5></td>");
         stringBuilder.append("            </tr>");
         stringBuilder.append("        </table>");
-        stringBuilder.append("        <a href=\"index.html\" class=\"button\">بازگشت به صفحه اول</a>");
+        stringBuilder.append("        <a href=\"index.jsp\" class=\"button\">بازگشت به صفحه اول</a>");
         stringBuilder.append("    </form>");
         stringBuilder.append("</div>");
         stringBuilder.append("</body>");
@@ -235,7 +235,7 @@ public class OutputGenerator {
         stringBuilder.append("<div class=\"tableBox\">\n");
         stringBuilder.append("    <form>\n");
         stringBuilder.append("<br>\n");
-        stringBuilder.append("        <a href=\"index.html\" class=\"button\">بازگشت به صفحه اول</a>\n");
+        stringBuilder.append("        <a href=\"index.jsp\" class=\"button\">بازگشت به صفحه اول</a>\n");
         stringBuilder.append("    </form>\n");
         stringBuilder.append("</div>\n");
         stringBuilder.append("</body>\n");

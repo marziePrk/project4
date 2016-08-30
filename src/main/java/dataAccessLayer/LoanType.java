@@ -12,32 +12,32 @@ import java.util.List;
 public class LoanType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "LOAN_TYPE_ID" , unique = true , nullable = false)
+    @Column(name = "LOAN_TYPE_ID", unique = true, nullable = false)
     private int id;
 
-    @Column(name = "NAME", unique = true , nullable = false)
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "INTEREST_RATE"  , nullable = false)
-    private int interestRate;
+    @Column(name = "INTEREST_RATE", nullable = false)
+    private String interestRate;
 
     @OneToMany(mappedBy = "LOAN_TYPE_ID")
     private List<GrantCondition> grantConditions = new ArrayList<GrantCondition>();
 
     //Constructor-------------------------------------------------------------------------------------------------------
-    public LoanType(){
+    public LoanType() {
 
     }
 
-    public LoanType(String name, int interestRate) {
-        this.name = name;
-        this.interestRate = interestRate;
-    }
-
-    public LoanType(String name, int interestRate, List<GrantCondition> grantConditions) {
-        this.name = name;
+    public LoanType(String loanTypeName, String interestRate, List<GrantCondition> grantConditions) {
+        this.name = loanTypeName;
         this.interestRate = interestRate;
         this.grantConditions = grantConditions;
+    }
+
+    public LoanType(String loanTypeName, String interestRate) {
+        this.name = loanTypeName;
+        this.interestRate = interestRate;
     }
 
     //getter------------------------------------------------------------------------------------------------------------
@@ -49,7 +49,7 @@ public class LoanType {
         return name;
     }
 
-    public int getInterestRate() {
+    public String getInterestRate() {
         return interestRate;
     }
 
@@ -66,7 +66,7 @@ public class LoanType {
         this.name = name;
     }
 
-    public void setInterestRate(int interestRate) {
+    public void setInterestRate(String interestRate) {
         this.interestRate = interestRate;
     }
 
