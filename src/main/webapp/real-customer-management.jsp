@@ -20,7 +20,7 @@
     <br>
     <br>
         <a href="create-loan-type.jsp" class="button">تعریف نوع تسهیلات </a>
-        <a href="create-loan-file.jsp" class="button">تشکیل پرونده تسهیلاتی </a>
+        <a href="CreateLoanFileServlet?action=firstCall" class="button">تشکیل پرونده تسهیلاتی </a>
 </div>
 </body>
 </html>
