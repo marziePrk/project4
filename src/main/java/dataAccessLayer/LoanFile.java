@@ -27,11 +27,12 @@ public class LoanFile {
     @Column(name = "AMOUNT", nullable = false)
     private String amount;
 
+
     //Constructor-------------------------------------------------------------------------------------------------------
     public LoanFile() {
     }
 
-    public LoanFile(RealCustomer realCustomer, LoanType loanType, String duration, String amount) {
+    public LoanFile(RealCustomer realCustomer,String duration, String amount , LoanType loanType) {
         this.realCustomer = realCustomer;
         this.loanType = loanType;
         this.duration = duration;

@@ -4,6 +4,7 @@ body{
     align-content: center;
     align-items: center;
     text-align: center;
+    font-family: "B Nazanin+ Black";
 }
 h1,h2 ,h3{
     color:saddlebrown ;
@@ -63,10 +64,11 @@ form{
     color: saddlebrown;
 }
 .tableBox {
-    margin: 5px 500px 10px  500px;
+    margin: 5px 420px 10px  420px;
     text-align: center;
     align-content: center;
     align-items: center;
+    align-self: center;
 }
 .grantConditionBox{
     display: flex;

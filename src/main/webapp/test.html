@@ -1,0 +1,143 @@
+<%@ page import="dataAccessLayer.RealCustomer" %>
+<%@ page import="java.util.List" %>
+<%@ page import="dataAccessLayer.LoanType" %><%--
+Created by IntelliJ IDEA.
+User: Dotin school 6
+Date: 8/28/2016
+Time: 12:09 PM
+To change this template use File | Settings | File Templates.
+--%>
+<%@ page isELIgnored="false" contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html>
+<head lang="fa">
+    <meta charset="UTF-8">
+    <link href="style/Style.css" rel="stylesheet">
+    <title>تعریف پرونده تسهیلاتی</title>
+
+</head>
+<body>
+<div class="pageHeader">
+</div>
+<div><h6>نسخه آزمایشی</h6></div>
+<div class="content">
+    <div class="tableBox">
+        <form name="customerNumForm" action="/CreateLoanFileServlet" >
+            <input type="text" name="action" value="retrieve-customer-loan-Type" hidden>
+            <table>
+                <tr>
+                    <td>شماره مشتری :</td>
+                    <td><input name="customerNumber" type="text" placeholder="شماره مشتری.." value="<%=request.getAttribute("customerNumber")%>" oninvalid="alert('فیلد شماره مشتری را جهت بازیابی پرکنید.');" required></td>
+                </tr>
+            </table>
+            <td><input type="submit" class="button" value="بازیابی" ></td>
+        </form>
+
+        <form name="myForm" action="/CreateLoanFileServlet" >
+            <% Integer customerExists = (Integer) request.getAttribute("customerExists");%>
+            <% if (customerExists == new Integer(1)) {%>
+            <input type="text" hidden name="action" value="create-loanfile">
+            <% RealCustomer realCustomer = (RealCustomer) request.getAttribute("realCustomer"); %>
+            <input type="text" hidden name="customerNumber" value="<%=request.getAttribute("customerNumber")%>">
+            <table>
+                <tr>
+                    <td> نوع تسهیلات</td>
+                    <td>
+                        <% Boolean loanTypeExists = (Boolean) request.getAttribute("LoanTypeExists"); %>
+                        <% if (loanTypeExists) { %>
+                        <% List<LoanType> loanTypes = (List<LoanType>) request.getAttribute("loanTypes"); %>
+                        <select class="my-dropdown" name="loanType">
+                            <% for (LoanType loanType : loanTypes) { %>
+                            <option value="<%= loanType.getId()%>"><%= loanType.getName()%>
+                            </option>
+                            <%}%>
+                        </select>
+                        <%} else {%>
+                        <p>تسهیلاتی موجود نمی باشد.</p>
+                        <%}%>
+                    </td>
+                </tr>
+                <tr>
+                    <td> نام مشتری :</td>
+                    <td><%= realCustomer.getFirstName() %>
+                    </td>
+                </tr>
+                <tr>
+                    <td> نام خانوادگی مشتری :</td>
+                    <td><%= realCustomer.getLastName() %>
+                    </td>
+                </tr>
+            </table>
+            <input class="button" type="submit" value="ثبت">
+            <%} %>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>
+-----------------------------------------------------------------------------------------------------------------------
+package presentationLayer;
+
+import bussinessLogicLayer.LoanTypeLogic;
+import bussinessLogicLayer.RealCustomerLogic;
+import dataAccessLayer.LoanType;
+import dataAccessLayer.RealCustomer;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
+/**
+* Created by Dotin school 6 on 8/23/2016.
+*/
+public class CreateLoanFileServlet extends HttpServlet {
+
+@Override
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+request.setCharacterEncoding("UTF8");
+response.setContentType("text/html; charset=UTF-8");
+response.setCharacterEncoding("UTF-8");
+RequestDispatcher requestDispatcher ;
+
+String customerNumber = request.getParameter("customerNumber");
+int customerExists = 0;
+boolean loanTypeExists = false;
+PrintWriter out = response.getWriter();
+List<RealCustomer> realCustomers = RealCustomerLogic.retrieveRealCustomerByCustomerNumber(customerNumber);
+    if (realCustomers.size()== 0){
+    out.println("شماره مشتری نا معتبر است.دوباره امتحان کنید...");
+    requestDispatcher = getServletContext().getRequestDispatcher("/create-loan-file.jsp");
+    requestDispatcher.include(request, response);
+    }else {
+    RealCustomer realCustomer = realCustomers.get(0);
+    customerExists = 1;
+    requestDispatcher = getServletContext().getRequestDispatcher("/create-loan-file.jsp");
+    request.setAttribute("customerExists", customerExists);
+    request.setAttribute("realCustomer", realCustomer);
+    request.setAttribute("customerNum", realCustomer.getCustomerNumber());
+
+    List<LoanType> loanTypes = LoanTypeLogic.retrieveLoanTypes();
+        if (loanTypes.size() == 0){
+        out.println("تسهیلاتی یافت نشد...");
+        requestDispatcher = getServletContext().getRequestDispatcher("/create-loan-file.jsp");
+        requestDispatcher.include(request, response);
+        }else {
+        loanTypeExists = true;
+        request.setAttribute("LoanTypeExists", loanTypeExists);
+        request.setAttribute("loanTypes", loanTypes);
+        }
+        requestDispatcher.forward(request, response);
+
+        }
+
+
+
+        }
+        }

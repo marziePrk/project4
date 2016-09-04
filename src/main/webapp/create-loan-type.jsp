@@ -1,11 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
+<html>
 <head lang="fa">
     <meta charset="UTF-8">
     <link href="style/Style.css" rel="stylesheet">
     <meta charset="UTF-8">
     <script>
         function validate() {
+          /*  elem.setAttribute("action","create-grant-condition.jsp");
+            elem.submit();*/
             var name=document.forms["myForm"]["loanTypeName"].value;
             var interestRate=document.forms["myForm"]["interestRate"].value;
             if (name==null || name=="")
@@ -30,7 +33,7 @@
     <h1 style="color: saddlebrown">لطفا اطلاعات زیر را وارد نمایید:</h1>
     <br>
     <div class="tableBox">
-        <form name="myForm" action="/CreateLoanTypeServlet"  method="post" onsubmit="return validate()">
+        <form name="myForm" action="create-grant-condition.jsp"  method="post" onsubmit="return validate()">
             <table>
                 <tr>
                     <td>نام نوع تسهیلات :</td>

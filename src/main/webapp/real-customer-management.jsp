@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <link href="style/Style.css" rel="stylesheet">
     <title>مدیریت مشتری حقیقی</title>
+</head>
 <body>
 <div class="pageHeader">
 </div>
@@ -20,7 +21,7 @@
     <br>
     <br>
         <a href="create-loan-type.jsp" class="button">تعریف نوع تسهیلات </a>
-        <a href="CreateLoanFileServlet?action=firstCall" class="button">تشکیل پرونده تسهیلاتی </a>
+        <a href="CreateLoanFileServlet?action=searchLoanTypes" class="button">تشکیل پرونده تسهیلاتی </a>
 </div>
 </body>
 </html>

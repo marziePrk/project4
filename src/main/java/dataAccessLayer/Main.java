@@ -1,10 +1,6 @@
 package dataAccessLayer;
 
 
-import org.hibernate.Session;
-
-import static util.HibernateUtil.getSessionFactory;
-
 /**
  * Created by Dotin school 6 on 8/21/2016.
  */

@@ -41,8 +41,8 @@
   </servlet>
 
   <servlet>
-    <servlet-name>CreateGrantCondition</servlet-name>
-    <servlet-class>presentationLayer.CreateGrantCondition</servlet-class>
+    <servlet-name>CreateGrantConditionServlet</servlet-name>
+    <servlet-class>presentationLayer.CreateGrantConditionServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
@@ -81,8 +81,8 @@
   </servlet-mapping>
 
   <servlet-mapping>
-    <servlet-name>CreateGrantCondition</servlet-name>
-    <url-pattern>/CreateGrantCondition</url-pattern>
+    <servlet-name>CreateGrantConditionServlet</servlet-name>
+    <url-pattern>/CreateGrantConditionServlet</url-pattern>
   </servlet-mapping>
 
 </web-app>

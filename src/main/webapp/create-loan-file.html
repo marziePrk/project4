@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="fa">
+    <meta charset="UTF-8">
+    <link href="style/Style.css" rel="stylesheet">
+    <title>تعریف پرونده تسهیلاتی</title>
+
+</head>
+<body>
+<div class="pageHeader">
+</div>
+<div><h6>نسخه آزمایشی</h6></div>
+<div class="content">
+    <div class="tableBox">
+        <form name="myForm" action="/CreateLoanFileServlet" onsubmit="" method="post">
+            <table>
+                <tr>
+                    <td>شماره مشتری :</td>
+                    <td><input name="customerNumber" type="text" placeholder="شماره مشتری.."></td>
+                </tr>
+            </table>
+            <input type="submit" class="button" value="بازیابی">
+        </form>
+        <form name="myForm">
+            <table>
+                <tr>
+                    <td>نام :</td>
+                    <td><input name="firstName" type="text" placeholder="نام.."></td>
+                </tr>
+                <tr>
+                    <td>نام خانوادگی :</td>
+                    <td><input name="lastName" type="text" placeholder="نام خانوادگی.."></td>
+                </tr>
+            </table>
+            <br>
+            <select name="selectGrantCondition">
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="fiat">Fiat</option>
+                <option value="audi">Audi</option>
+            </select>
+            <br>
+            <br>
+            <input type="submit" class="button" value="ثبت">
+
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

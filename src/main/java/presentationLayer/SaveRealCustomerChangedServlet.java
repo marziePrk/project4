@@ -1,7 +1,7 @@
 package presentationLayer;
 
 import bussinessLogicLayer.RealCustomerLogic;
-import exception.DuplicateCodeException;
+import exception.DuplicateException;
 import exception.EmptyFieldException;
 import exception.HibernateExceptions;
 import util.OutputGenerator;
@@ -33,7 +33,7 @@ public class SaveRealCustomerChangedServlet extends HttpServlet {
             RealCustomerLogic.checkValidation(id ,firstName.trim(), lastName.trim(), fatherName.trim(), birthDate.trim(), nationalId.trim());
             RealCustomerLogic.updateRealCustomer(id,firstName , lastName , fatherName , birthDate , nationalId);
             outHTML = generateSuccessfulPage("عملیات بروزرسانی با موفقیت انجام شد.");
-        } catch (DuplicateCodeException e) {
+        } catch (DuplicateException e) {
             outHTML = OutputGenerator.generateExceptionPage(e.getMessage());
         } catch (EmptyFieldException e) {
             outHTML = OutputGenerator.generateExceptionPage(e.getMessage());

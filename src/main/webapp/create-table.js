@@ -54,5 +54,10 @@ function showTable() {
         }
         document.getElementById("rowNumber").value = rowNumber;
     }
-}
+    document.getElementById("grantName").value = "";
+    document.getElementById("minDuration").value = "";
+    document.getElementById("maxDuration").value = "";
+    document.getElementById("minAmount").value = "";
+    document.getElementById("maxAmount").value = "";
 
+}

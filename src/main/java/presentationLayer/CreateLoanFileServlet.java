@@ -5,6 +5,7 @@ import bussinessLogicLayer.RealCustomerLogic;
 import dataAccessLayer.LoanType;
 import dataAccessLayer.RealCustomer;
 import exception.HibernateExceptions;
+import exception.OutOfRangeException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,19 +37,31 @@ public class CreateLoanFileServlet extends HttpServlet {
             findCustomer(request, response);
         }
         if ("createLoanFile".equalsIgnoreCase(action)) {
-            createLoanFile(request, response);
+            try {
+                createLoanFile(request, response);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
     }
 
-    private void createLoanFile(HttpServletRequest request, HttpServletResponse response) {
-        int customerId = Integer.parseInt(request.getParameter("customerId"));
+    private void createLoanFile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        long customerId = Integer.parseInt(request.getParameter("customerId"));
         String amount = request.getParameter("amount");
         String duration = request.getParameter("duration");
         int loanTypeId = Integer.parseInt(request.getParameter("chosenLoanType"));
 
         try {
             LoanFileLogic.create(customerId , amount , duration , loanTypeId);
+            int retrieveLoanTypeId = LoanFileLogic.validate(amount, duration , loanTypeId);
+            RealCustomer realCustomer = LoanFileLogic.create(customerId, amount, duration, retrieveLoanTypeId);
+            request.setAttribute("title", "تایید ثبت تسهیلات");
+            request.setAttribute("header", "پرونده تسهیلاتی مشتری با شماره "+ realCustomer.getCustomerNumber()+"با موفقیت ثبت شد.");
+            getServletConfig().getServletContext().getRequestDispatcher("/result-page.jsp").forward(request, response);
+
         } catch (HibernateExceptions ex) {
             request.setAttribute("title", "خطا");
             request.setAttribute("header", ex.getMessage());
@@ -61,6 +74,13 @@ public class CreateLoanFileServlet extends HttpServlet {
                 e.printStackTrace();
             }
             ex.printStackTrace();
+            requestDispatcher.forward(request, response);
+            ex.printStackTrace();
+        } catch (OutOfRangeException e) {
+            request.setAttribute("title", "خطا");
+            request.setAttribute("header", e.getMessage());
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/result-page.jsp");
+            requestDispatcher.forward(request, response);
         }
 
     }
@@ -79,6 +99,9 @@ public class CreateLoanFileServlet extends HttpServlet {
                 request.setAttribute("customerExists" , customerExists );
                 request.setAttribute("realCustomer", realCustomer);
                 request.setAttribute("loanTypes", loanType);
+                request.setAttribute("customerExists", customerExists);
+                request.setAttribute("realCustomer", realCustomer);
+                request.setAttribute("loanTypes", loanTypes);
                 RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/create-loan-file.jsp");
                 requestDispatcher.forward(request, response);
             } else {
@@ -86,6 +109,9 @@ public class CreateLoanFileServlet extends HttpServlet {
                 request.setAttribute("customerExists" , customerExists );
                 request.setAttribute("title", "خطا");
                 request.setAttribute("header","شماره مشتری تعریف نشده...");
+                request.setAttribute("customerExists", customerExists);
+                request.setAttribute("title", "خطا");
+                request.setAttribute("header", "شماره مشتری تعریف نشده...");
                 RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/result-page.jsp");
                 requestDispatcher.forward(request, response);
             }
@@ -106,6 +132,8 @@ public class CreateLoanFileServlet extends HttpServlet {
             if (loanTypes.size() > 0) {
                 loanTypeExist = "true";
                 request.setAttribute("loanTypeExist" , loanTypeExist );
+                request.setAttribute("loanTypeExist", loanTypeExist);
+                request.setAttribute("loanTypes", loanTypes);
                 RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/create-loan-file.jsp");
                 requestDispatcher.forward(request, response);
             } else {
@@ -113,6 +141,9 @@ public class CreateLoanFileServlet extends HttpServlet {
                 request.setAttribute("loanTypeExist" ,loanTypeExist);
                 request.setAttribute("title", "خطا");
                 request.setAttribute("header","تسهیلاتی یافت نشد!!");
+                request.setAttribute("loanTypeExist", loanTypeExist);
+                request.setAttribute("title", "خطا");
+                request.setAttribute("header", "تسهیلاتی یافت نشد!!");
                 RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/result-page.jsp");
                 requestDispatcher.forward(request, response);
             }

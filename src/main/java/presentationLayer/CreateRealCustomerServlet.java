@@ -2,7 +2,7 @@ package presentationLayer;
 
 import bussinessLogicLayer.RealCustomerLogic;
 import dataAccessLayer.RealCustomer;
-import exception.DuplicateCodeException;
+import exception.DuplicateException;
 import exception.EmptyFieldException;
 import exception.HibernateExceptions;
 import util.OutputGenerator;
@@ -38,7 +38,7 @@ public class CreateRealCustomerServlet extends HttpServlet {
 
         } catch (EmptyFieldException e) {
             outputHTML = OutputGenerator.generateExceptionPage(e.getMessage());
-        } catch (DuplicateCodeException e) {
+        } catch (DuplicateException e) {
             outputHTML = OutputGenerator.generateExceptionPage(e.getMessage());
         }
         response.setContentType("text/html; charset=UTF-8");

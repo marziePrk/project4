@@ -2,7 +2,7 @@ package bussinessLogicLayer;
 
 import dataAccessLayer.DAO.RealCustomerDAO;
 import dataAccessLayer.RealCustomer;
-import exception.DuplicateCodeException;
+import exception.DuplicateException;
 import exception.EmptyFieldException;
 import exception.HibernateExceptions;
 
@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class RealCustomerLogic {
 
-    public static boolean checkValidation(String firstName, String lastName, String fatherName, String birthDate, String nationalId) throws EmptyFieldException, DuplicateCodeException {
+    public static boolean checkValidation(String firstName, String lastName, String fatherName, String birthDate, String nationalId) throws EmptyFieldException, DuplicateException {
         if (firstName.equals("")) {
             throw new EmptyFieldException("لطفا فیلد نام  را وارد کنید. ");
         }
@@ -31,12 +31,12 @@ public class RealCustomerLogic {
             throw new EmptyFieldException("لطفا فیلد شماره ملی   را وارد کنید.");
         }
         if (RealCustomerDAO.retrieveRealCustomerByNationalId(nationalId).size() > 0) {
-            throw new DuplicateCodeException("کد ملی وارد شده تکراری است.");
+            throw new DuplicateException("کد ملی وارد شده تکراری است.");
         }
         return true;
     }
 
-    public static boolean checkValidation(Long id, String firstName, String lastName, String fatherName, String birthDate, String nationalId) throws EmptyFieldException, DuplicateCodeException {
+    public static boolean checkValidation(Long id, String firstName, String lastName, String fatherName, String birthDate, String nationalId) throws EmptyFieldException, DuplicateException {
         if (firstName.equals("")) {
             throw new EmptyFieldException("لطفا فیلد نام  را وارد کنید. ");
         }
@@ -61,9 +61,9 @@ public class RealCustomerLogic {
         if (realCustomersSize > 0) {
             RealCustomer realCustomer = realCustomers.get(0);
             if (realCustomersSize > 1) {
-                throw new DuplicateCodeException("کد ملی وارد شده تکراری است.");
+                throw new DuplicateException("کد ملی وارد شده تکراری است.");
             } else if (realCustomer.getId() != id) {
-                throw new DuplicateCodeException("کد ملی وارد شده تکراری است.");
+                throw new DuplicateException("کد ملی وارد شده تکراری است.");
             }
         }
         return true;

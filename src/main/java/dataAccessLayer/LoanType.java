@@ -21,7 +21,7 @@ public class LoanType {
     @Column(name = "INTEREST_RATE", nullable = false)
     private String interestRate;
 
-    @OneToMany(mappedBy = "LOAN_TYPE_ID")
+    @OneToMany(mappedBy = "LOAN_TYPE_ID" )
     private List<GrantCondition> grantConditions = new ArrayList<GrantCondition>();
 
     //Constructor-------------------------------------------------------------------------------------------------------

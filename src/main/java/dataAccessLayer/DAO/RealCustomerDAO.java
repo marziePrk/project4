@@ -2,11 +2,13 @@ package dataAccessLayer.DAO;
 
 import dataAccessLayer.RealCustomer;
 import exception.HibernateExceptions;
+import org.apache.log4j.PropertyConfigurator;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import util.HibernateUtil;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,9 @@ public class RealCustomerDAO {
             session.save(realCustomer);
             transaction.commit();
             session.close();
+            Logger.getLogger(RealCustomer.class).info("real customer created.");
         } catch (HibernateException ex) {
+            Logger.getLogger(RealCustomer.class).info("real customer dose not created.");
             transaction.rollback();
             session.close();
             ex.printStackTrace();
@@ -43,7 +47,9 @@ public class RealCustomerDAO {
             session.remove(realCustomer);
             transaction.commit();
             session.close();
+            Logger.getLogger(RealCustomer.class).info("real customer deleted.");
         } catch (HibernateException ex) {
+            Logger.getLogger(RealCustomer.class).info("real customer dose not deleted.");
             transaction.rollback();
             session.close();
             throw new HibernateExceptions("");
@@ -60,7 +66,10 @@ public class RealCustomerDAO {
             session.update(realCustomer);
             transaction.commit();
             session.close();
+            Logger.getLogger(RealCustomer.class).info("real customer updated.");
+
         } catch (HibernateException ex) {
+            Logger.getLogger(RealCustomer.class).info("real customer dose not deleted.");
             transaction.rollback();
             session.close();
             throw new HibernateExceptions("");
@@ -87,6 +96,8 @@ public class RealCustomerDAO {
                 realCustomers = query.list();
             }
             transaction.commit();
+            Logger.getLogger(RealCustomer.class).info("real customer retrieved.");
+
         }finally {
             session.close();
         }
@@ -105,6 +116,7 @@ public class RealCustomerDAO {
             query.setParameter("nationalId" , nationalId);
             realCustomers = query.list();
             transaction.commit();
+            Logger.getLogger(RealCustomer.class).info("real customer retrieved.");
         } finally {
             session.close();
         }
@@ -194,6 +206,7 @@ public class RealCustomerDAO {
             session.close();
             return (ArrayList<RealCustomer>) realCustomers;
         }
+        Logger.getLogger(RealCustomer.class).info("real customer retrieved.");
            /* realCustomers = query.list();
             transaction.commit();*/
 
@@ -235,9 +248,28 @@ public class RealCustomerDAO {
             Query query = session.createQuery(hql);
             count = (Long) query.uniqueResult();
             transaction.commit();
+            Logger.getLogger(RealCustomer.class).info("real customer retrieved.");
         } finally {
             session.close();
         }
         return count;
+    }
+
+    public static RealCustomer retrieveRealCustomerById(long customerId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        RealCustomer realCustomer ;
+        try {
+            String hql = "from RealCustomer realCustomer where id = :id";
+            Query query = session.createQuery(hql);
+            query.setParameter("id" , customerId);
+            realCustomer = (RealCustomer) query.uniqueResult();
+            transaction.commit();
+            Logger.getLogger(RealCustomer.class).info("real customer retrieved.");
+        } finally {
+            session.close();
+        }
+        return realCustomer;
+
     }
 }
